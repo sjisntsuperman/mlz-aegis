@@ -1,0 +1,20 @@
+<html>
+<head>
+    <title>
+        demo
+    </title>
+    <script type="text/javascript" src="../lib/reporter.js" ></script>
+</head>
+<body>
+<button id="btn">click me</button>
+    <script>
+        const r = new reporter({
+            report_url: 'https://mlz-aegis-api.codemao.com/user/monitor'
+        })
+        const btn = document.getElementById('btn')
+        btn.onclick = function () {
+            a=b;
+        }
+    </script>
+</body>
+</html>
