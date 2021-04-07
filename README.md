@@ -4,6 +4,7 @@
 
 ## 技术选型
 
-- koa + ts
-- mongodb
-- 
+- express + ts
+- mongodb + mysql
+- zeromq
+- nestjs
