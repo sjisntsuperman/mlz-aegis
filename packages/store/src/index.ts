@@ -5,7 +5,7 @@ var log4js = require('log4js'),
 // var argv = process.argv.slice(2);
 
 // if (argv.indexOf('--project') >= 0) {
-global.pjconfig = require('./conf');
+global.pjconfig = require('./config/server.config');
 // } else {
 //   global.pjconfig = require(path.join(__dirname, 'project.json'));
 // }

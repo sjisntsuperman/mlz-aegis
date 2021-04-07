@@ -12,8 +12,8 @@
   "scripts": {
     "tsc": "tsc",
     "watch-tsc": "tsc -w",
-    "deploy": "node dist/index.js",
-    "watch-deploy": "nodemon dist/index.js",
+    "deploy": "node dist/server.js",
+    "watch-deploy": "nodemon dist/server.js",
     "server": "concurrently \"npm run watch-tsc\" \"npm run watch-deploy\"",
     "start": "npm run deploy",
     "heroku-postbuild": "npm run tsc"

@@ -19,7 +19,7 @@ logger.level = 'DEBUG';
 //   logger.lever = 'INFO';
 // }
 
-global.pjconfig = require('./conf');
+global.pjconfig = require('./config/server.config');
 
 // if (argv.indexOf('--project') >= 0) {
 //   global.pjconfig = require(path.join(__dirname, 'project.debug.json'));
