@@ -1,4 +1,8 @@
-module.exports = {
+// import ajv from "ajv";
+
+// new ajv()
+
+export const config = {
   port: 8082,
   dispatcher: {
     port: 10001,

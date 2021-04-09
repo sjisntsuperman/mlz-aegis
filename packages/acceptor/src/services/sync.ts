@@ -3,23 +3,18 @@
  * 在项目初始化的时候会自动从DB里面读写相关信息，并且放在内存中
  * 项目中如果有apply信息改变，或者白名单信息更新，会重新触发读取操作
  */
-const express = require('express');
-const Sequelize = require('sequelize');
-const logger = require('utils/logger');
-
-declare global {}
-export interface Global1 {
-  pjconfig: any;
-  debug: any;
-}
-declare var global: Global1;
+import express from 'express';
+import { Sequelize } from 'sequelize';
+import { global } from 'types/typings';
+import { logger } from "../utils/logger";
 
 const sequelize = new Sequelize(global.pjconfig.mysql.url);
 
 const app = express();
 
-const syncService = function (clusters) {
-  const dispatchCluster = function (data) {
+export
+const syncService = function (clusters: string | any[]) {
+  const dispatchCluster = function (data: { whitelist?: unknown; projectsInfo?: unknown; }) {
     for (let i = 0; i < clusters.length; i++) {
       clusters[i].send(data);
     }
@@ -30,7 +25,7 @@ const syncService = function (clusters) {
       'select uin, aid, aegisid from b_whitelist where aegisid = 0 or aegisid in (select id from b_apply  where status = 1)'
     );
     if (whitelist && whitelist.length && whitelist[0].length) {
-      const whitelistInfo = whitelist[0].reduce((p, c) => {
+      const whitelistInfo = whitelist[0].reduce((p, c: any) => {
         if (!p[c.aegisid]) {
           p[c.aegisid] = {};
         }
@@ -49,7 +44,7 @@ const syncService = function (clusters) {
         'select id, username, name, url from b_apply where status = 1'
       );
       if (projects && projects.length && projects[0].length) {
-        const projectsInfo = projects[0].reduce((p, c) => {
+        const projectsInfo = projects[0].reduce((p, c: any) => {
           p[c.id] = {
             id: c.id,
             url: c.url,

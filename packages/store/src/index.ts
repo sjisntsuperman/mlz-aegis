@@ -31,6 +31,6 @@ dispatcher().pipe(save());
 logger.info('start aegis-storage success.');
 
 // setTimeout(function () {
-//   require('./service/query')();
-//   require('./service/autoClear')();
+//   require('./services/query')();
+//   require('./services/autoClear')();
 // }, 1000);

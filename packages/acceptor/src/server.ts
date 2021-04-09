@@ -1,16 +1,12 @@
-/* global process, global, GLOBAL */
-const path = require('path');
-const cluster = require('cluster');
-const logger = require('utils/logger');
+import path from 'path';
+import cluster from 'cluster';
+import {logger} from 'utils/logger';
 // 必须在 master 中执行 clusterhub 模块，才能使用 clusterhub 在 worker 间通信
-require('clusterhub');
-
-declare global {}
-export interface Global1 {
-  pjconfig: any;
-  debug: any;
-}
-declare var global: Global1;
+import clusterhub from 'clusterhub';
+import { global } from 'types/typings';
+import * as envConfig from "./configs/env";
+import { syncService } from "./services/sync";
+import { app as worker } from "./services/worker";
 
 // const argv = process.argv.slice(2);
 
@@ -22,7 +18,7 @@ global.debug = true;
 // }
 
 // if (argv.indexOf('--project') >= 0) {
-global.pjconfig = require('./config/server.config');
+global.pjconfig = envConfig;
 // } else {
 //   global.pjconfig = require(path.join(__dirname, 'project.json'));
 // }
@@ -35,7 +31,7 @@ if (cluster.isMaster) {
     clusters.push(forkCluster);
   }
 
-  require('./service/syncService')(clusters);
+  syncService(clusters);
 } else {
-  require('./service/worker');
+  // worker;
 }
