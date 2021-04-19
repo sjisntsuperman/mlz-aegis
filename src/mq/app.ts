@@ -1,30 +1,13 @@
 import mq from 'axon';
-
-const log4js = require('log4js'),
-  logger = log4js.getLogger();
-
-import path from 'path';
-
-const argv = process.argv.slice(2);
-
-if (argv.indexOf('--debug') >= 0) {
-  logger.level = 'DEBUG';
-} else {
-  logger.lever = 'INFO';
-}
-
-if (argv.indexOf('--project') >= 0) {
-  global.pjconfig = require(path.join(__dirname, 'project.debug.json'));
-} else {
-  global.pjconfig = require(path.join(__dirname, 'project.json'));
-}
+import { Logger } from '@nestjs/common';
+import { config } from '../configs/mq.config';
 
 const dispatcher = mq.socket('pub');
 const acceptor = mq.socket('pull');
-const dispatcherPort = global.pjconfig.dispatcher.port;
-const dispatcherAddress = global.pjconfig.dispatcher.address;
-const acceptorPort = global.pjconfig.acceptor.port;
-const acceptorAddress = global.pjconfig.acceptor.address;
+const dispatcherPort = config.dispatcher.port;
+const dispatcherAddress = config.dispatcher.address;
+const acceptorPort = config.acceptor.port;
+const acceptorAddress = config.acceptor.address;
 
 acceptor[acceptor.bindSync ? 'bindSync' : 'bind'](
   'tcp://' + acceptorAddress + ':' + acceptorPort,
@@ -35,8 +18,8 @@ dispatcher[acceptor.bindSync ? 'bindSync' : 'bind'](
 );
 
 acceptor.on('message', function (data) {
-  logger.debug(data.toString());
+  Logger.debug(data.toString());
   dispatcher.send(data);
 });
 
-logger.info('start aegis-mq success. ');
+Logger.log('start aegis-mq success. ');

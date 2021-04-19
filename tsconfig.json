@@ -10,6 +10,12 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "mq/*": ["src/mq/*"],
+      "utils/*": ["src/utils/*"],
+      "web/*": ["src/web/*"],
+      "env/*": ["src/configs/*"]
+    }
   }
 }
